@@ -7,15 +7,25 @@
 
 
 @isset($fornecedores)
-    Fornecedor: {{$fornecedores[1]['nome']}}
-    <br>
-    Status: {{$fornecedores[1]['status']}}
-    <br>
-    @isset($fornecedores[1]['cpnj'])
-        CNPJ: {{$fornecedores[1]['cpnj']}}
-        @empty($fornecedores[1]['cnpj'])
-            - vazio
-        @endempty
-    @endisset
-    <br>
+    @forelse($fornecedores as $indice  => $fornecedor)
+        Iteração atual {{$loop->iteration}}
+        <br>
+        Fornecedor: {{$fornecedor['nome'] ?? ''}}
+        <br>
+        Status: {{$fornecedor['status'] ?? ''}}
+        <br>
+        CPNJ: {{$fornecedor['cpnj'] ?? ''}}
+        @if($loop->first)
+            Primeira iteração
+        @endif
+         @if($loop->last)
+            última iteração
+            <br>
+                Total de registros {{$loop->count}}
+        @endif
+        <hr>
+
+    @empty
+        Não existem fornecedores cadastrados
+    @endforelse
 @endisset
