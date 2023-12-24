@@ -24,46 +24,13 @@ Route::get('/login', function () { return 'login'; })->name('site.login');
 
 Route::prefix('/app')->group(function() {
     Route::get('/clientes', function () { return 'clientes'; })->name('app.clientes');
-    Route::get('/fornecedores', function () { return 'fornecedores'; })->name('app.fornecedores');
+    Route::get('/fornecedores',[App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedores');
     Route::get('/produtos', function () { return 'produtos'; })->name('app.produtos');
 });
 
-Route::get('/rota1', function() {
-    echo 'Rota 1';
-})->name('site.rota1');
-
-
-//  ======Redirecionamento de rotas======
-Route::get('/rota2', function() {
-    return redirect()->route('site.rota1');
-})->name('site.rota2');
-// Route::redirect('/rota2', '/rota1');
-
-
+Route::get('/teste/{p1}/{p2}', [\App\Http\Controllers\TesteController::class, 'teste'])->name('site.teste');
 
 Route::fallback(function() {
     echo 'A rota acessada não existe. <a href="'.route('site.index').'">clique aqui<a/> para is para a página inicial';
 });
-
-
-
-// ======Parâmetros======
-// nome, categoria, assunto, mensagem
-Route::get('/contato/{nome}/{categoria}/{assunto}/{mensagem?}', 
-function(
-    string $nome, 
-    string $categoria, 
-    string $assunto, 
-    string $mensagem = 'mensagem não informada') {
-    // echo 'Estamos aqui: '.$nome.' - '.$categoria. ' | '.$assunto. ' - '.$mensagem;
-    echo "Estamos aqui $nome: $categoria | $assunto: $mensagem";
-});
-
-Route::get('/contato/{nome}/{categoria_id}', 
-function(
-    string $nome, 
-    int $categoria_id = 1 // 1 - informação
-    ) {
-    echo "Estamos aqui $nome: $categoria_id";
-}) -> where('categoria_id', '[0-9]+') -> where('nome', '[A-Za-z]+'); // expressão regular
 
