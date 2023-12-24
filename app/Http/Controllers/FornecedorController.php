@@ -8,20 +8,21 @@ class FornecedorController extends Controller
 {
     public function index() {
         $fornecedores = [
-            'Fornecedor 1', 
-            'Fornecedor 2', 
-            'Fornecedor 3', 
-            'Fornecedor 4', 
-            'Fornecedor 5'
-        ];
-
-        $fornecedores1 = [
             0 => [
-                'nome' => 'Fornecedor 1', 
-                'status' => 'inativo'
+                'nome' => 'fornecedor 1', 
+                'status' => 'ativo',
+                'cpnj' => '00.000.000/000-00'
+            ],
+            1 => [
+                'nome' => 'fornecedor 2', 
+                'status' => 'inativo',
+                'cpnj' => ''
+
             ]
         ];
 
-        return view('app.fornecedor.index', compact('fornecedores', 'fornecedores1'));
+        echo isset($fornecedores[1]['cnpj']) ? 'CNPJ informado' : 'Informar CNPJ';
+
+        return view('app.fornecedor.index', compact('fornecedores'));
     }
 }
